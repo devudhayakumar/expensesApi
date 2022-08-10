@@ -26,7 +26,4 @@ public class UserDetailsController {
         userdetailsrepo.save(userdetails);
         return "Saved..";
     }
-
-
-
 }
