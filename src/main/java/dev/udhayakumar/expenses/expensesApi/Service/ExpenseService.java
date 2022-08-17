@@ -2,10 +2,7 @@ package dev.udhayakumar.expenses.expensesApi.Service;
 
 import dev.udhayakumar.expenses.expensesApi.Model.Expense;
 import dev.udhayakumar.expenses.expensesApi.Repository.ExpenseRepo;
-import dev.udhayakumar.expenses.expensesApi.Repository.ExpensesListRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +20,19 @@ public class ExpenseService {
 
     public List<Expense> getExpense(){
         return expenserepo.findAll();
+    }
+
+    public String updateExpense(Expense newexpense){
+        return expenserepo.findById(newexpense.getId()).map(expense1 -> {
+            expense1.setAmount(newexpense.getAmount());
+            expense1.setExpenselistid(newexpense.getExpenselistid());
+            expenserepo.save(expense1);
+            return "updated";
+        }).orElseGet(() ->{
+           expenserepo.save(newexpense);
+           return "saved";
+        });
+
     }
 
 }

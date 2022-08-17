@@ -4,10 +4,7 @@ package dev.udhayakumar.expenses.expensesApi.Controller;
 import dev.udhayakumar.expenses.expensesApi.Model.Expense;
 import dev.udhayakumar.expenses.expensesApi.Service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,13 +14,18 @@ public class ExpenseController {
     @Autowired
     ExpenseService expenseservice;
 
-    @PostMapping(value = "/saveExpense")
+    @PostMapping(value = "/expenses")
     public String saveExpense(@RequestBody Expense expense){
         return expenseservice.saveExpense(expense);
     }
 
-    @GetMapping(value = "/getExpenses")
+    @GetMapping(value = "/expenses")
     public List<Expense> getExpense(){
         return expenseservice.getExpense();
+    }
+
+    @PutMapping(value = "/expenses")
+    public String updateExpense(@RequestBody Expense expense){
+        return expenseservice.updateExpense(expense);
     }
 }
